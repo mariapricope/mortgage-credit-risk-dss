@@ -77,17 +77,19 @@ KEY_FIELDS = ["credit_score", "employment_years", "savings_gbp", "credit_utilisa
 
 # ----- Decision logic -----
 
-# Probability of repayment difficulty
-RISK_BANDS = {"low_max": 0.20, "high_min": 0.50}
+# Probability thresholds for the ML model's risk bands
 
 # Policy rules
 POLICY = {
-    "max_ltv_pct": 90.0,          # LTV above this -> escalate
-    "max_dti": 0.45,              # affordability ratio above this -> escalate
-    "min_credit_score": 550,      # score below this -> escalate
-    "max_missed_payments": 2,     # >= this many missed payments in 24m -> escalate
-    "max_missing_key_fields": 2,  # >= this many key fields missing -> insufficient data
+    "max_ltv_pct": 90.0,          # LTV above this -> at least MEDIUM
+    "max_dti": 0.50,              # affordability ratio above this -> at least MEDIUM
+    "min_credit_score": 550,      # score below this -> HIGH
+    "high_missed_payments": 3,    # this many or more missed payments in 24m -> HIGH
+    "max_missing_key_fields": 2,  # this many or more key fields missing -> INSUFFICIENT
 }
+
+# Outcome severity (higher = more cautious)
+SEVERITY = {"LOW": 0, "MEDIUM": 1, "HIGH": 2}
 
 OUTCOMES = {
     "LOW": "Low risk - proceed with standard underwriter review",
