@@ -1,0 +1,6 @@
+application_id,annual_income_gbp,property_value_gbp,deposit_gbp,requested_loan_gbp,loan_to_value_pct,monthly_debt_commitments_gbp,debt_to_income_ratio,credit_score,employment_type,employment_years,savings_gbp,missed_payments_24m,credit_utilisation_pct,previous_default_flag,term_years,interest_rate_pct,application_channel
+NEW001,85000,320000,96000,224000,70.0,150,0.18,780,Employed,9.5,40000,0,15.0,0,25,4.2,Online
+NEW002,42000,210000,21000,189000,90.0,420,0.42,655,Self-employed,2.1,4000,1,58.0,0,30,5.4,Broker
+NEW003,38000,180000,25000,155000,86.1,600,0.61,590,Contractor,1.0,1500,2,72.0,1,35,6.1,Branch
+NEW004,55000,250000,30000,220000,88.0,300,0.35,,Employed,,8000,0,40.0,0,25,4.9,Online
+NEW005,60000,240000,36000,204000,85.0,250,0.30,530,Employed,4.0,6000,0,45.0,0,25,5.0,Broker
