@@ -1,3 +1,5 @@
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+# Accelerate warnings on arm64 macOS
+filterwarnings = ["ignore:.*encountered in matmul:RuntimeWarning"]
