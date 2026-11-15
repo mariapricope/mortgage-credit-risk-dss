@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
 import pandas as pd  # noqa: E402
 
-from mortgage_dss import config, eda  # noqa: E402
+from mortgage_dss import config, diagram, eda  # noqa: E402
 from mortgage_dss.model import VERSIONS  # noqa: E402
 from mortgage_dss.pipeline import compare_versions, run_version, score_applications  # noqa: E402
 
@@ -52,6 +52,7 @@ def cmd_score(args):
 
 def cmd_all(_):
     cmd_eda(None)
+    diagram.draw()
     results = [run_version(s) for s in VERSIONS.values()]
     print("\n=== Version comparison (test set) ===")
     print(compare_versions(results).T.to_string(header=False))
