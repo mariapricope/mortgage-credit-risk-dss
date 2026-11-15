@@ -48,6 +48,11 @@ def top_risk_factors(pipeline: Pipeline, X: pd.DataFrame, n: int = 3) -> list:
         return [f"(global) {top}"] * len(X)
     Z = pipeline.named_steps["preprocess"].transform(X)
     contrib = Z * model.coef_[0]
+    raw_names = pipeline.named_steps["preprocess"].get_feature_names_out()
+    for j, raw in enumerate(raw_names):
+        if "missingindicator_" in raw:
+            field = raw.split("missingindicator_", 1)[1]
+            contrib[X[field].notna().to_numpy(), j] = 0.0
     names = np.array(feature_names(pipeline))
     out = []
     for row in contrib:
