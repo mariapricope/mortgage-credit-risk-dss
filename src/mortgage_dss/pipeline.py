@@ -6,7 +6,7 @@ import pandas as pd
 from . import config
 from .data_loader import load_raw_data, split_features_target
 from .decision_rules import decide_batch
-from .evaluation import classification_metrics, plot_evaluation
+from .evaluation import bootstrap_comparison, classification_metrics, plot_evaluation, plot_version_comparison
 from .explain import global_importance, top_risk_factors
 from .model import (
     ModelSettings,
@@ -105,6 +105,13 @@ def compare_versions(results: list) -> pd.DataFrame:
                      "system_review_workload": round(s["review_workload"], 4)})
     table = pd.DataFrame(rows)
     table.to_csv(config.RESULTS_DIR / "version_comparison.csv", index=False)
+    plot_version_comparison(table, config.FIGURES_DIR / "version_comparison.png")
+
+    if len(results) == 2:
+        a, b = (pd.read_csv(config.RESULTS_DIR / f"{r['version']}_test_decisions.csv") for r in results)
+        boot = bootstrap_comparison(a["actual_outcome"], a["probability"], results[0]["threshold"],
+                                    b["probability"], results[1]["threshold"])
+        (config.RESULTS_DIR / "version_bootstrap_ci.json").write_text(json.dumps(boot, indent=2))
     return table
 
 
